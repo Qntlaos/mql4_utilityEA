@@ -9,8 +9,8 @@
 #property strict
 
 
-input string FileName = "(GoodInvest)426952.history.csv" ;
-input int GMT = 2; 
+extern string FileName = "(GoodInvest)426952.history" ;
+extern int GMT = 2; 
 
 
 
@@ -52,6 +52,8 @@ int OnInit()
    
    readData arr[1];
    
+   
+   FileName = FileName+".csv";
    string terminal_data_path=TerminalInfoString(TERMINAL_DATA_PATH); 
    string filename=terminal_data_path+"\\MQL4\\Files\\"+FileName; 
    
@@ -127,6 +129,7 @@ void DRAW_SYMBOL_BUTTON(readData &arr[])
                Btn_no[bNo]=j;
                SYM_STATE[j]=true;
                bNo++;
+               //Print(SYM[j]);
             }
          }
       }
@@ -140,7 +143,7 @@ void DRAW_SYMBOL_BUTTON(readData &arr[])
    LabelCreate(Chart_id,Obj_Name+"-ButtonTitle",0,x_base,y_base,CORNER_LEFT_UPPER,"Click SYMBOL below to move the other symbol history","Arial",10,clrWheat);
    for(int i=0;i<bNo;i++)
    {
-      if(Btn_no[i]>0)
+      if(Btn_no[i]>=0)
       {
          ButtonCreate(Chart_id,Obj_Name+"-"+SYM[Btn_no[i]]+"-"+(string)i,0,x_base,y_base+(height+height_gap)*(i+1),width,height,CORNER_LEFT_UPPER,
                       SYM[Btn_no[i]],"Arial Black",10,clrGray,C'57,47,49',clrBlack,false,false,false,true,0);
